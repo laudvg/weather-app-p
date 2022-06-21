@@ -8,12 +8,6 @@
                 <h4>{{data.name}}, {{data.sys?.country}}</h4>
               </div>
           </div>
-          <div class="row today-date">
-              <h4>{{hour}}</h4>
-          </div>
-          <div class="row today-date">
-              <h4>{{date}}</h4>
-          </div>
         </div>
       </div>
       <div class="row">
@@ -68,23 +62,43 @@
         </h5>
       </div>
     </div>
+    <forecast-card 
+      :tempAve="forecast.main.temp" 
+      :tempMin="forecast.main.temp_min"
+      :tempMax="forecast.main.temp_max"
+      :day="forecast.dt"
+      v-for="forecast in forecastData.list" v-bind:key="forecast.dt"
+    ></forecast-card>
+    </div>
+    <div>
   </div>
 </template>
 
 <script lang="ts">
-import {weatherTypes} from '../types/weatherTypes';
 import { defineComponent } from 'vue';
+import {weatherTypes} from '../types/weatherTypes';
 import { getWeatherbyLocation } from '@/services/apiCalls';
+import ForecastCard from './ForecastCard.vue';
+import {forecastTypes} from '@/types/forecastTypes';
+import {getForecast} from '@/services/Forecast';
 
 export default defineComponent({
-name: 'DefaultWeather',
+  name: 'DefaultWeather',
+  components: { 
+    ForecastCard 
+  },
   data() {
     return {
-      latitude: 0,
-      longitude: 0,
+      latitude: 1,
+      longitude: 1,
       data: {} as weatherTypes,
       date:'',
       hour:'',
+      temperature: 1,
+      temp_min:1,
+      temp_max:1,
+      forecastData: {} as forecastTypes,
+      day: '',
     }
   },
   methods: {
@@ -101,32 +115,32 @@ name: 'DefaultWeather',
       this.latitude = lat;
       this.longitude = lng;
       this.searchWeatherbyLocation();
+      this.searchForecast();
     },
 
     async searchWeatherbyLocation():Promise<void>{
-      console.log(this.latitude, this.longitude)
+      // console.log(this.latitude, this.longitude)
       const value = await getWeatherbyLocation(this.latitude, this.longitude);
-      this.data = value;  
-      // console.log("data", value);
+      this.data = value;
+      this.temperature = value.main.temp;
+      this.temp_min = value.main.temp_min;
+      this.temp_max = value.main.temp_max;
     },
     
-    addPlaceInfo(){
-      this.setDate();
+    async searchForecast():Promise<void>{
+      console.log(this.latitude,this.longitude, 'onsearch')
+      const value = await getForecast(this.latitude, this.longitude);
+      this.forecastData = value;
+      // console.log("data", this.forecastData);
+
+    },
+
+    sunValues(){
       this.setSunrise();
       this.setSunset();
     },
 
-    setDate(){
-      const dates = new Date();
-      const currentHourr =  dates.getHours() + ':' + dates.getMinutes();
-      const dateOptions: object = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const dateLocale = dates.toLocaleDateString("en-US", dateOptions);
-      this.date = dateLocale;
-      this.hour = currentHourr;
-      console.log(this.date, this.hour);
-    },
-
-    formatHours(timestamp: any){
+    formatHours(timestamp: number){
       const date = new Date(timestamp * 1000);
       const hours = date.getHours();
       const minutes = "0" + date.getMinutes();
@@ -146,7 +160,17 @@ name: 'DefaultWeather',
   },
   created(){
     this.getGeolocalization();
-    this.addPlaceInfo();
+    this.sunValues();
+  },
+  watch: {
+    longitude: {
+      immediate: true,
+      handler: 'searchWeatherbyLocation',
+    },
+    latitude: {
+      immediate: true,
+      handler: 'searchWeatherbyLocation',
+    },
   },
 });
 </script>
