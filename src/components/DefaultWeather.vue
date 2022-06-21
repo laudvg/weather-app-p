@@ -9,10 +9,10 @@
               </div>
           </div>
           <div class="row today-date">
-              <h4>hour</h4>
+              <h4>{{hour}}</h4>
           </div>
           <div class="row today-date">
-              <h4>date</h4>
+              <h4>{{date}}</h4>
           </div>
         </div>
       </div>
