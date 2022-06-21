@@ -39,7 +39,7 @@ export default defineComponent({
       console.log(this.date, this.hour);
     },
 
-    formatHours(timestamp: any) {
+    formatHours(timestamp: number) {
       const date = new Date(timestamp * 1000);
       const hours = date.getHours();
       const minutes = "0" + date.getMinutes();
