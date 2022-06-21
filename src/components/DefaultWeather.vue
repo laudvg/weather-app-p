@@ -54,23 +54,23 @@
         </div>
       </div>
       <div class="row sunrise-sunset mt-2">
-        <h5> sunrise
+        <h5>
           Sunrise&nbsp;{{setSunrise()}}
         </h5>
-        <h5> sunset
+        <h5>
           Sunset&nbsp;{{setSunset()}}
         </h5>
       </div>
     </div>
-    <forecast-card 
-      :tempAve="forecast.main.temp" 
-      :tempMin="forecast.main.temp_min"
-      :tempMax="forecast.main.temp_max"
-      :day="forecast.dt"
-      v-for="forecast in forecastData.list" v-bind:key="forecast.dt"
-    ></forecast-card>
+    <div class="forecast-cards">
+      <forecast-card 
+        :tempAve="forecast.main.temp" 
+        :tempMin="forecast.main.temp_min"
+        :tempMax="forecast.main.temp_max"
+        :day="forecast.dt"
+        v-for="forecast in forecastData.list" v-bind:key="forecast.dt"
+      ></forecast-card>
     </div>
-    <div>
   </div>
 </template>
 
@@ -98,7 +98,6 @@ export default defineComponent({
       temp_min:1,
       temp_max:1,
       forecastData: {} as forecastTypes,
-      day: '',
     }
   },
   methods: {
@@ -129,7 +128,6 @@ export default defineComponent({
     async searchForecast():Promise<void>{
       const value = await getForecast(this.latitude, this.longitude);
       this.forecastData = value;
-      // console.log("data", this.forecastData);
     },
 
     sunValues() : void {
@@ -202,5 +200,11 @@ export default defineComponent({
 .temperature-now{
   font-size: 8rem;
   text-shadow: 2px 2px 10px #cac9c9;
+}
+
+.forecast-cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 </style>

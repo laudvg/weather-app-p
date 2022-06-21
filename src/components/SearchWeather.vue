@@ -62,6 +62,7 @@
         </h5>
       </div>
     </div>
+    <div class="forecast-cards">
     <forecast-card 
       :tempAve="forecast.main.temp" 
       :tempMin="forecast.main.temp_min"
@@ -69,6 +70,7 @@
       :day="forecast.dt"
       v-for="forecast in forecastData.list" v-bind:key="forecast.dt"
     ></forecast-card>
+    </div>
   </div>
 </template>
 
@@ -179,5 +181,11 @@ name: 'DefaultWeather',
 .temperature-now{
   font-size: 8rem;
   text-shadow: 2px 2px 10px #cac9c9;
+}
+
+.forecast-cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 </style>

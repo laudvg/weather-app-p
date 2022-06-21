@@ -1,9 +1,13 @@
 <template>
   <div class="card forecast-card bg-primary">
-    <div>
-      <h6>{{tempAve}}</h6>
-      <h6>{{tempMin}}-{{tempMax}}</h6>
-      <h6>{{formatedHour}}</h6>
+      <h6 class="temp">{{Math.round(tempAve)}}&deg;</h6>
+      <h6>at {{formatedHour}}</h6>
+    <div class="min-max-val">
+      <span class="arrow material-icons-outlined md-14">arrow_upward</span>
+      <h6 class="min-max">{{Math.round(tempMin)}}&deg;&nbsp;</h6>
+
+      <span class="arrow material-icons-outlined md-14">arrow_downward</span>
+      <h6 class="min-max">{{Math.round(tempMax)}}&deg;</h6>
     </div>
   </div>
 </template>
@@ -39,6 +43,34 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style> 
+  .min-max{
+    font-size: .75rem;
+  }
+  .temp{
+    font-size: 2rem;
+    margin-left: 1rem;
+  }
+  .single-card{
+    display: flex;
+  }
+  .forecast-card{
+    width: 7rem;
+    padding-right:.5rem;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-content: center;
+  }
+  .material-icons-outlined.md-14 { 
+    font-size: 12px;
+    margin-top: .1rem;
+  }
+  .min-max-val{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-content: center;
+  }
 
 </style>
