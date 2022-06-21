@@ -68,8 +68,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {weatherTypes} from '../types/weatherTypes';
-import { searchtWeather } from '@/services/searchCity';
-import {getForecast} from '@/services/Forecast'
+import { searchtWeather } from '@/services/bySearchAPICall';
+import {getForecast} from '@/services/byForecastAPICall'
 import {forecastTypes} from '@/types/forecastTypes'
 
 export default defineComponent({
@@ -92,7 +92,6 @@ name: 'DefaultWeather',
   },
   methods: {
     async searchWeather():Promise<void>{
-      console.log(this.cityQuery)
       const value = await searchtWeather(this.cityQuery);
       this.data = value;  
       // console.log("data", value);
@@ -102,7 +101,6 @@ name: 'DefaultWeather',
       console.log(this.latitude, this.longitude, 'onsearch')
       const value = await getForecast(this.latitude, this.longitude);
       this.forecastData = value;  
-      console.log("data", this.data);
     },
 
     sunValues(){

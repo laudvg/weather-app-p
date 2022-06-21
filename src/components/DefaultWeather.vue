@@ -77,10 +77,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {weatherTypes} from '../types/weatherTypes';
-import { getWeatherbyLocation } from '@/services/apiCalls';
+import { getWeatherbyLocation } from '@/services/byLocationAPICall';
 import ForecastCard from './ForecastCard.vue';
 import {forecastTypes} from '@/types/forecastTypes';
-import {getForecast} from '@/services/Forecast';
+import {getForecast} from '@/services/byForecastAPICall';
 
 export default defineComponent({
   name: 'DefaultWeather',
@@ -119,7 +119,6 @@ export default defineComponent({
     },
 
     async searchWeatherbyLocation():Promise<void>{
-      // console.log(this.latitude, this.longitude)
       const value = await getWeatherbyLocation(this.latitude, this.longitude);
       this.data = value;
       this.temperature = value.main.temp;
@@ -128,14 +127,12 @@ export default defineComponent({
     },
     
     async searchForecast():Promise<void>{
-      console.log(this.latitude,this.longitude, 'onsearch')
       const value = await getForecast(this.latitude, this.longitude);
       this.forecastData = value;
       // console.log("data", this.forecastData);
-
     },
 
-    sunValues(){
+    sunValues() : void {
       this.setSunrise();
       this.setSunset();
     },

@@ -36,7 +36,6 @@ export default defineComponent({
       const dateLocale = dates.toLocaleDateString("en-US", dateOptions);
       this.date = dateLocale;
       this.hour = currentHourr;
-      console.log(this.date, this.hour);
     },
 
     formatHours(timestamp: number) {
