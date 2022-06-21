@@ -6,7 +6,7 @@
           <div class="row">
               <div class="today-date my-3">
                 <h4>city and country</h4>
-                <!-- <h4>{{weatherSearch.name}}, {{weatherSearch.sys.country}}</h4> -->
+                <h4>{{data.name}}, {{data.sys?.country}}</h4>
               </div>
           </div>
           <div class="row today-date">
@@ -22,16 +22,15 @@
       <div class="row">
         <div class="col d-flex flex-column align-items-center">
           <h1 class="temperature-now ml-3 m-b0">
-          30º
-            <!-- {{Math.round(weatherSearch.main.temp)}}&deg; -->
+            {{Math.round(data.main?.temp)}}&deg;
           </h1>
-          <!-- <h6>Feels like {{Math.round(weatherSearch.main.feels_like)}}&deg;</h6> -->
+          <h6>Feels like {{Math.round(data.main?.feels_like)}}&deg;</h6>
           <h6>Feels like</h6>
         </div>
       </div>
       <div class="row">
         <div class="today-date mb-2">
-          <!-- <h4>Max {{Math.round(weatherSearch.main.temp_max)}}&deg; - Min {{Math.round(weatherSearch.main.temp_min)}}&deg;</h4> -->
+          <h4>Max {{Math.round(data.main?.temp_max)}}&deg; - Min {{Math.round(data.main?.temp_min)}}&deg;</h4>
         </div>
       </div>
       <div class="row weather-description">
@@ -53,14 +52,13 @@
         </div>
         <div class="col">
           <div class="description">
-            <!-- {{weatherSearch.main.pressure}} hPa --> 
-            <!-- {{data.main.pressure}} hPa -->
+            {{data.main?.pressure}}&nbsp;hPa 
           </div>
           <div class="description">
-            <!-- {{weatherSearch.main.humidity}} % --> %
+            {{data.main?.humidity}}&nbsp;%
           </div>
           <div class="description">
-            <!-- {{weatherSearch.clouds.all}} % --> %
+            {{data.clouds?.all}}&nbsp;%
           </div>
         </div>
       </div>
@@ -77,17 +75,18 @@
 </template>
 
 <script lang="ts">
-// import {weatherTypes} from '../types/weatherTypes';
+import {weatherTypes} from '../types/weatherTypes';
 import { defineComponent } from 'vue';
 import { GeolocationTypes } from '../types/locationTypes';
+import { getWeatherbyLocation } from '@/services/apiCalls';
 
 export default defineComponent({
 name: 'DefaultWeather',
   data() {
     return {
-      coords: {} as GeolocationTypes,
-      latitude: '',
-      longitude: '',
+      latitude: 1,
+      longitude: 1,
+      data: {} as weatherTypes,
     }
   },
   methods: {
@@ -103,9 +102,15 @@ name: 'DefaultWeather',
       const lat = position.coords.latitude;
       this.latitude = lat;
       this.longitude = lng;
+      this.searchWeatherbyLocation();
     },
-    
 
+    async searchWeatherbyLocation():Promise<void>{
+      console.log(this.latitude, this.longitude)
+      const value = await getWeatherbyLocation(this.latitude, this.longitude);
+      this.data = value;  
+      console.log("data", value);
+    },
   },
   created(){
     this.getGeolocalization();

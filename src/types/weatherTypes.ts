@@ -1,5 +1,6 @@
-export type weatherTypes = {
+export interface weatherTypes {
     name: string;
+    
     weather: {
       id: number;
       main: string;
@@ -26,6 +27,10 @@ export type weatherTypes = {
       sunrise: number;
       sunset: number;
     };
+
+    clouds: {
+        all: number;
+    }
 }
   
 //   export type ExtendedTypes = {
