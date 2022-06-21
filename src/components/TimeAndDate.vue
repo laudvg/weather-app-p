@@ -1,22 +1,22 @@
 <template>
   <div>
-    <div class="row today-date">
-      <h4>{{ hour }}</h4>
-    </div>
-    <div class="row today-date">
+    <div class='row today-date'>
       <h4>{{ date }}</h4>
+    </div>
+    <div class='row today-date'>
+      <h4>{{ hour }}</h4>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang='ts'>
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: "TimeAndDate",
+  name: 'TimeAndDate',
   data() {
     return {
-      date: "",
-      hour: "",
+      date: '',
+      hour: '',
     };
   },
   methods: {
@@ -26,14 +26,14 @@ export default defineComponent({
 
     setDate() {
       const dates = new Date();
-      const currentHourr = dates.getHours() + ":" + dates.getMinutes();
+      const currentHourr = dates.getHours() + ':' + dates.getMinutes();
       const dateOptions: object = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       };
-      const dateLocale = dates.toLocaleDateString("en-US", dateOptions);
+      const dateLocale = dates.toLocaleDateString('en-US', dateOptions);
       this.date = dateLocale;
       this.hour = currentHourr;
     },
@@ -41,8 +41,8 @@ export default defineComponent({
     formatHours(timestamp: number) {
       const date = new Date(timestamp * 1000);
       const hours = date.getHours();
-      const minutes = "0" + date.getMinutes();
-      const formattedTime = hours + ":" + minutes.substr(-2);
+      const minutes = '0' + date.getMinutes();
+      const formattedTime = hours + ':' + minutes.substr(-2);
       return formattedTime;
     },
   },
