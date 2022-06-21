@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <time-and-date></time-and-date>
     <input-search-weather :getCity="getNewCity" ></input-search-weather>
+    <time-and-date></time-and-date>
     <search-weather :cityQuery="searchCity" v-if="searchCity.length > 0"></search-weather>
     <default-weather v-else></default-weather>
   </div>
@@ -27,13 +27,11 @@ export default defineComponent({
   data(){
     return {
       searchCity: '',
-      search: false,
     }
   },
   methods:{
     getNewCity(city: string): void{
       this.searchCity = city;
-      this.search = true;
     }
   },
 });
