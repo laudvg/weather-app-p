@@ -54,14 +54,21 @@
         </div>
       </div>
       <div class="row sunrise-sunset mt-2">
-        <h5> sunrise
+        <h5>
           Sunrise&nbsp;{{setSunrise()}}
         </h5>
-        <h5> sunset
+        <h5>
           Sunset&nbsp;{{setSunset()}}
         </h5>
       </div>
     </div>
+    <forecast-card 
+      :tempAve="forecast.main.temp" 
+      :tempMin="forecast.main.temp_min"
+      :tempMax="forecast.main.temp_max"
+      :day="forecast.dt"
+      v-for="forecast in forecastData.list" v-bind:key="forecast.dt"
+    ></forecast-card>
   </div>
 </template>
 
@@ -69,11 +76,15 @@
 import { defineComponent } from 'vue';
 import {weatherTypes} from '../types/weatherTypes';
 import { searchtWeather } from '@/services/bySearchAPICall';
+import ForecastCard from './ForecastCard.vue';
+import {forecastTypes} from '@/types/forecastTypes';
 import {getForecast} from '@/services/byForecastAPICall'
-import {forecastTypes} from '@/types/forecastTypes'
 
 export default defineComponent({
 name: 'DefaultWeather',
+  components: { 
+    ForecastCard 
+  },
   data() {
     return {
       latitude: 1,
@@ -93,14 +104,13 @@ name: 'DefaultWeather',
   methods: {
     async searchWeather():Promise<void>{
       const value = await searchtWeather(this.cityQuery);
-      this.data = value;  
-      // console.log("data", value);
+      this.data = value;
+      this.searchForecast();
     },
     
     async searchForecast():Promise<void>{
-      console.log(this.latitude, this.longitude, 'onsearch')
       const value = await getForecast(this.latitude, this.longitude);
-      this.forecastData = value;  
+      this.forecastData = value;
     },
 
     sunValues(){
@@ -128,6 +138,7 @@ name: 'DefaultWeather',
   },
   created(){
     this.searchWeather();
+    this.sunValues();
   },
   watch: {
     cityQuery: {
