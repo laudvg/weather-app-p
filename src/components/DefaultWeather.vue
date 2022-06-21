@@ -5,17 +5,14 @@
         <div class="col d-flex flex-column align-items-center">
           <div class="row">
               <div class="today-date my-3">
-                <h4>city and country</h4>
                 <h4>{{data.name}}, {{data.sys?.country}}</h4>
               </div>
           </div>
           <div class="row today-date">
-                <h4>hour</h4>
-                <!-- {{hour}} -->
+              <h4>hour</h4>
           </div>
           <div class="row today-date">
-                <h4>date</h4>
-                 <!-- {{date}} -->
+              <h4>date</h4>
           </div>
         </div>
       </div>
@@ -64,10 +61,10 @@
       </div>
       <div class="row sunrise-sunset mt-2">
         <h5> sunrise
-          <!-- Sunrise&nbsp;{{setSunrise()}} -->
+          Sunrise&nbsp;{{setSunrise()}}
         </h5>
         <h5> sunset
-          <!-- Sunset&nbsp;{{setSunset()}} -->
+          Sunset&nbsp;{{setSunset()}}
         </h5>
       </div>
     </div>
@@ -77,16 +74,17 @@
 <script lang="ts">
 import {weatherTypes} from '../types/weatherTypes';
 import { defineComponent } from 'vue';
-import { GeolocationTypes } from '../types/locationTypes';
 import { getWeatherbyLocation } from '@/services/apiCalls';
 
 export default defineComponent({
 name: 'DefaultWeather',
   data() {
     return {
-      latitude: 1,
-      longitude: 1,
+      latitude: 0,
+      longitude: 0,
       data: {} as weatherTypes,
+      date:'',
+      hour:'',
     }
   },
   methods: {
@@ -94,7 +92,7 @@ name: 'DefaultWeather',
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.asignGeolocalization);
       } else {
-        console.log("Cant get Geolocalization");
+        alert("The app requieres the Geolocation to continue");
       }
     },
     asignGeolocalization(position: any): void {
@@ -109,11 +107,46 @@ name: 'DefaultWeather',
       console.log(this.latitude, this.longitude)
       const value = await getWeatherbyLocation(this.latitude, this.longitude);
       this.data = value;  
-      console.log("data", value);
+      // console.log("data", value);
+    },
+    
+    addPlaceInfo(){
+      this.setDate();
+      this.setSunrise();
+      this.setSunset();
+    },
+
+    setDate(){
+      const dates = new Date();
+      const currentHourr =  dates.getHours() + ':' + dates.getMinutes();
+      const dateOptions: object = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateLocale = dates.toLocaleDateString("en-US", dateOptions);
+      this.date = dateLocale;
+      this.hour = currentHourr;
+      console.log(this.date, this.hour);
+    },
+
+    formatHours(timestamp: any){
+      const date = new Date(timestamp * 1000);
+      const hours = date.getHours();
+      const minutes = "0" + date.getMinutes();
+      const formattedTime = hours + ':' + minutes.substr(-2);
+      return formattedTime;
+    },
+
+    setSunrise(){
+      const sunrise = this.data.sys?.sunrise;
+      return this.formatHours(sunrise);
+    },
+
+    setSunset(){
+      const sunset = this.data.sys?.sunset;
+      return this.formatHours(sunset);
     },
   },
   created(){
     this.getGeolocalization();
+    this.addPlaceInfo();
   },
 });
 </script>
