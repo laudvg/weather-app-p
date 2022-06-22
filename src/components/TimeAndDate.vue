@@ -1,10 +1,7 @@
 <template>
-  <div>
+  <div class="date">
     <div class='row today-date'>
-      <h4>{{ date }}</h4>
-    </div>
-    <div class='row today-date'>
-      <h4>{{ hour }}</h4>
+      <h6>{{ date }}</h6>
     </div>
   </div>
 </template>
@@ -35,7 +32,6 @@ export default defineComponent({
       };
       const dateLocale = dates.toLocaleDateString('en-US', dateOptions);
       this.date = dateLocale;
-      this.hour = currentHourr;
     },
 
     formatHours(timestamp: number) {
@@ -53,4 +49,7 @@ export default defineComponent({
 </script>
 
 <style>
+.date{
+ margin-top:0px;
+}
 </style>

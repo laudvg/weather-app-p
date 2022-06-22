@@ -4,12 +4,13 @@
       <div class="row">
         <div class="col d-flex flex-column align-items-center">
           <div class="row">
-              <div class="today-date my-3">
+              <div class="today-date mt-2 mb-0">
                 <h4>{{data.name}}, {{data.sys?.country}}</h4>
               </div>
           </div>
         </div>
       </div>
+      <time-and-date></time-and-date>
       <div class="row">
         <div class="col d-flex flex-column align-items-center">
           <h1 class="temperature-now ml-3">
@@ -71,11 +72,13 @@ import { getWeatherbyLocation } from '@/services/byLocationAPICall';
 import ForecastCard from './ForecastCard.vue';
 import {forecastTypes} from '@/types/forecastTypes';
 import {getForecast} from '@/services/byForecastAPICall';
+import TimeAndDate from './TimeAndDate.vue';
 
 export default defineComponent({
   name: 'DefaultWeather',
   components: { 
-    ForecastCard 
+    ForecastCard,
+    TimeAndDate,
   },
   data() {
     return {
@@ -160,7 +163,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .weather-now-card{
   width: 25rem;
   height: 33rem;

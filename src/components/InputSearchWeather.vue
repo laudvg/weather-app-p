@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 input-group input-group-sm mb-3">
+  <div class="col-md-4 input-group input-group-sm mb-1 mt-3">
     <input type="text" size="sm" class="input-group-text" placeholder="Search a city" v-model="city" @keyup.enter="getCity(city)">
     <button type="button" class="btn btn-light" @click="getCity(city)">Search</button>
   </div>
