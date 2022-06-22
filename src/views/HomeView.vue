@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <input-search-weather :getCity="getNewCity" ></input-search-weather>
+    <input-search-weather :getCity="getNewCity"></input-search-weather>
     <weather-card :cityQuery="searchCity"></weather-card>
   </div>
   

@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="info mt-4">
-        <div class="row weather-description" style="margin-right:.05rem;">
+        <div class="row weather-description" style="margin-right:.02rem;">
           <div class="d-flex justify-content-end">
             <h6>Humidity {{data.main?.humidity}}&nbsp;%</h6>
             <span class="material-icons-outlined md-14">water_drop</span>
@@ -37,7 +37,7 @@
             <span class="material-icons-outlined md-14">wb_twilight</span>
           </div>
         </div>
-        <div class="row weather-description" style="margin-left:.05rem;">
+        <div class="row weather-description" style="margin-left:.02rem;">
           <div class="d-flex justify-content-beggining">
             <span class="material-icons-outlined md-14">compare_arrows</span>
             <h6>Press. {{data.main?.pressure}}&nbsp;hPa</h6>
@@ -69,7 +69,7 @@
     </div>
   </div>
   <div class="mt-2">
-    <button type="button" class="btn btn-outline-primary btn-sm" @click="getWeatherbyLocation()">
+    <button type="button" class="btn btn-outline-primary btn-sm" @click="currentLocation()">
           Go to the weather of your current location
         <span class="material-icons-outlined md-16">place</span>
     </button>
@@ -147,6 +147,10 @@ export default defineComponent({
     async searchForecast():Promise<void>{
       const value = await getForecast(this.latitude, this.longitude);
       this.forecastData = value;
+    },
+
+    currentLocation(){
+      this.getWeatherbyLocation();
     },
 
     sunValues() : void {
@@ -236,7 +240,7 @@ export default defineComponent({
 
 .material-icons-outlined.md-14 { 
   font-size: 14px;
-  margin: 0rem 1rem 1rem 1rem;
+  margin: 0rem .75rem 1rem .75rem;
 }
 
 .info{
