@@ -3,10 +3,10 @@
       <h6 class="temp">{{Math.round(tempAve)}}&deg;</h6>
       <h6>at {{formatedHour}}</h6>
     <div class="min-max-val">
-      <span class="arrow material-icons-outlined md-14">arrow_upward</span>
+      <span class="arrow material-icons-outlined md-12">arrow_upward</span>
       <h6 class="min-max">{{Math.round(tempMin)}}&deg;&nbsp;</h6>
 
-      <span class="arrow material-icons-outlined md-14">arrow_downward</span>
+      <span class="arrow material-icons-outlined md-12">arrow_downward</span>
       <h6 class="min-max">{{Math.round(tempMax)}}&deg;</h6>
     </div>
   </div>
@@ -62,7 +62,7 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
   }
-  .material-icons-outlined.md-14 { 
+  .material-icons-outlined.md-12 { 
     font-size: 12px;
     margin-top: .1rem;
   }

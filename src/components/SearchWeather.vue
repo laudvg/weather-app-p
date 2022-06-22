@@ -12,53 +12,43 @@
       </div>
       <div class="row">
         <div class="col d-flex flex-column align-items-center">
-          <h1 class="temperature-now ml-3 m-b0">
+          <h1 class="temperature-now ml-3">
             {{Math.round(data.main?.temp)}}&deg;
           </h1>
-          <h6>Feels like {{Math.round(data.main?.feels_like)}}&deg;</h6>
-          <h6>Feels like</h6>
         </div>
       </div>
-      <div class="row">
-        <div class="today-date mb-2">
-          <h4>Max {{Math.round(data.main?.temp_max)}}&deg; - Min {{Math.round(data.main?.temp_min)}}&deg;</h4>
-        </div>
-      </div>
-      <div class="row weather-description">
-        <div class="col">
-          <div class="description d-flex justify-content-end">
-            Pressure
+      <div class="info" style="padding-right:.75rem;">
+        <div class="row weather-description" style="margin-right:.2rem;">
+          <div class="d-flex justify-content-end">
+            <h6>Humidity <span class="material-icons-outlined md-14">water_drop</span>{{data.main?.humidity}}&nbsp;%</h6>
           </div>
-          <div class="description d-flex justify-content-end">
-            Humidity
+          <div class="d-flex justify-content-end">
+            <h6>Feels like<span class="material-icons-outlined md-14">landscape</span>{{Math.round(data.main?.feels_like)}}&deg;</h6>
           </div>
-          <div class="description d-flex justify-content-end">
-            Clouds
+          <div class="d-flex justify-content-end">
+            <h6>Max<span class="material-icons-outlined md-14">arrow_upward</span>{{Math.round(data.main?.temp_max)}}&deg;</h6>
           </div>
         </div>
-        <div class="col">
-          <div>|</div>
-          <div>|</div>
-          <div>|</div>
-        </div>
-        <div class="col">
-          <div class="description">
-            {{data.main?.pressure}}&nbsp;hPa 
+        <div class="row weather-description">
+          <div class="d-flex justify-content-beggining">
+            <h6>Press.<span class="material-icons-outlined md-14">compare_arrows</span>{{data.main?.pressure}}&nbsp;hPa</h6>
           </div>
-          <div class="description">
-            {{data.main?.humidity}}&nbsp;%
+          <div class="d-flex justify-content-beggining">
+            <h6>Clouds<span class="material-icons-outlined md-14">cloud</span>{{data.clouds?.all}}&nbsp;%</h6>
           </div>
-          <div class="description">
-            {{data.clouds?.all}}&nbsp;%
+          <div class="d-flex justify-content-beggining">
+            <h6>Min<span class="material-icons-outlined md-14">arrow_downward</span>{{Math.round(data.main?.temp_min)}}&deg;</h6>
           </div>
         </div>
       </div>
-      <div class="row sunrise-sunset mt-2">
+      <div class="sunrise-sunset mt-2">
         <h5>
-          Sunrise&nbsp;{{setSunrise()}}
+        <span class="material-icons-outlined md-18">wb_twilight</span>
+          Sunrise&nbsp;{{setSunrise()}} h.
         </h5>
         <h5>
-          Sunset&nbsp;{{setSunset()}}
+        <span class="material-icons-outlined md-18">nights_stay</span>        
+          Sunset&nbsp;{{setSunset()}} h.
         </h5>
       </div>
     </div>
@@ -155,7 +145,6 @@ name: 'DefaultWeather',
 .weather-now-card{
   width: 25rem;
   height: 33rem;
-  background-color: #47BFDF;
   color: #ffffff;
   font-size: 1rem;
   font-family: Poppins;
@@ -164,14 +153,13 @@ name: 'DefaultWeather',
 .weather-now{
   height: 20rem;
   height: 30rem;
-  background-color:#ffffff82;
   border-radius: 5%;
-  box-shadow: 2px 2px 5px #ffffff;
 }
 
 .weather-description{
   width: 15rem;
   font-weight: 500;
+  font-size: .75rem;
 }
 
 .today-date{
@@ -180,12 +168,37 @@ name: 'DefaultWeather',
 
 .temperature-now{
   font-size: 8rem;
-  text-shadow: 2px 2px 10px #cac9c9;
 }
 
 .forecast-cards{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.sunrise-sunset{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+.material-icons-outlined.md-18 { 
+  font-size: 18px;
+  margin-top: .1rem;
+  margin-left: 0.75rem;
+}
+
+.material-icons-outlined.md-14 { 
+  font-size: 14px;
+  margin: 0rem 1rem 1rem 1rem;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  font-size: .75rem;
 }
 </style>
