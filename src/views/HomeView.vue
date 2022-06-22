@@ -41,6 +41,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color:#F0F8FF;
 }
 
 </style>

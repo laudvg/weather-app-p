@@ -51,5 +51,6 @@ export default defineComponent({
 <style>
 .date{
  margin-top:0px;
+
 }
 </style>
