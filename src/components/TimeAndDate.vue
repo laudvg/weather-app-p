@@ -23,7 +23,6 @@ export default defineComponent({
 
     setDate() {
       const dates = new Date();
-      const currentHourr = dates.getHours() + ':' + dates.getMinutes();
       const dateOptions: object = {
         weekday: 'long',
         year: 'numeric',

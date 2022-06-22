@@ -10,6 +10,7 @@
           </div>
         </div>
       </div>
+      <time-and-date></time-and-date>
       <div class="row">
         <div class="col d-flex flex-column align-items-center">
           <h1 class="temperature-now ml-3">
@@ -75,12 +76,14 @@ import {weatherTypes} from '../types/weatherTypes';
 import { searchtWeather } from '@/services/bySearchAPICall';
 import ForecastCard from './ForecastCard.vue';
 import {forecastTypes} from '@/types/forecastTypes';
-import {getForecast} from '@/services/byForecastAPICall'
+import {getForecast} from '@/services/byForecastAPICall';
+import TimeAndDate from './TimeAndDate.vue';
 
 export default defineComponent({
 name: 'DefaultWeather',
   components: { 
-    ForecastCard 
+    ForecastCard,
+    TimeAndDate,
   },
   data() {
     return {
