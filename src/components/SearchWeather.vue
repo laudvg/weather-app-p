@@ -17,41 +17,46 @@
           </h1>
         </div>
       </div>
-      <div class="info" style="padding-right:.75rem;">
-        <div class="row weather-description" style="margin-right:.2rem;">
+      <div class="info mt-4">
+        <div class="row weather-description" style="margin-right:.05rem;">
           <div class="d-flex justify-content-end">
-            <h6>Humidity <span class="material-icons-outlined md-14">water_drop</span>{{data.main?.humidity}}&nbsp;%</h6>
+            <h6>Humidity{{data.main?.humidity}}&nbsp;%</h6>
+            <span class="material-icons-outlined md-14">water_drop</span>
           </div>
           <div class="d-flex justify-content-end">
-            <h6>Feels like<span class="material-icons-outlined md-14">landscape</span>{{Math.round(data.main?.feels_like)}}&deg;</h6>
+            <h6>Feels like{{Math.round(data.main?.feels_like)}}&deg;</h6>
+            <span class="material-icons-outlined md-14">landscape</span>
           </div>
           <div class="d-flex justify-content-end">
-            <h6>Max<span class="material-icons-outlined md-14">arrow_upward</span>{{Math.round(data.main?.temp_max)}}&deg;</h6>
+            <h6>Max {{Math.round(data.main?.temp_max)}}&deg;</h6>
+            <span class="material-icons-outlined md-14">arrow_upward</span>
+          </div>
+          <div class="d-flex justify-content-end">
+            <h6>Sunrise&nbsp;{{setSunrise()}}h.</h6>
+            <span class="material-icons-outlined md-14">wb_twilight</span>
           </div>
         </div>
-        <div class="row weather-description">
+        <div class="row weather-description" style="margin-left:.05rem;">
           <div class="d-flex justify-content-beggining">
-            <h6>Press.<span class="material-icons-outlined md-14">compare_arrows</span>{{data.main?.pressure}}&nbsp;hPa</h6>
+            <span class="material-icons-outlined md-14">compare_arrows</span>
+            <h6>Press.{{data.main?.pressure}}&nbsp;hPa</h6>
           </div>
           <div class="d-flex justify-content-beggining">
-            <h6>Clouds<span class="material-icons-outlined md-14">cloud</span>{{data.clouds?.all}}&nbsp;%</h6>
+            <span class="material-icons-outlined md-14">cloud</span>
+            <h6>Clouds{{data.clouds?.all}}&nbsp;%</h6>
           </div>
           <div class="d-flex justify-content-beggining">
-            <h6>Min<span class="material-icons-outlined md-14">arrow_downward</span>{{Math.round(data.main?.temp_min)}}&deg;</h6>
+            <span class="material-icons-outlined md-14">arrow_downward</span>
+            <h6>Min {{Math.round(data.main?.temp_min)}}&deg;</h6>
+          </div>
+          <div class="d-flex justify-content-beggining">
+            <span class="material-icons-outlined md-14">nights_stay</span>
+            <h6>Sunset&nbsp;{{setSunset()}}h.</h6>
           </div>
         </div>
-      </div>
-      <div class="sunrise-sunset mt-2">
-        <h5>
-        <span class="material-icons-outlined md-18">wb_twilight</span>
-          Sunrise&nbsp;{{setSunrise()}} h.
-        </h5>
-        <h5>
-        <span class="material-icons-outlined md-18">nights_stay</span>        
-          Sunset&nbsp;{{setSunset()}} h.
-        </h5>
       </div>
     </div>
+    <h6 style="font-size:.75rem">Next Hours Forecast</h6>
     <div class="forecast-cards">
     <forecast-card 
       :tempAve="forecast.main.temp" 
@@ -176,13 +181,6 @@ name: 'DefaultWeather',
   justify-content: space-evenly;
 }
 
-.sunrise-sunset{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: baseline;
-}
-
 .material-icons-outlined.md-18 { 
   font-size: 18px;
   margin-top: .1rem;
@@ -199,6 +197,5 @@ name: 'DefaultWeather',
   flex-direction: row;
   justify-content: space-around;
   align-content: center;
-  font-size: .75rem;
 }
 </style>
