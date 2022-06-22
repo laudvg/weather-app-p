@@ -68,6 +68,12 @@
       ></forecast-card>
     </div>
   </div>
+  <div class="mt-2">
+    <button type="button" class="btn btn-outline-primary btn-sm" @click="getWeatherbyLocation()">
+          Go to the weather of your current location
+        <span class="material-icons-outlined md-16">place</span>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -186,7 +192,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .weather-now-card{
   width: 25rem;
   height: 33rem;
@@ -222,6 +228,10 @@ export default defineComponent({
 
 .material-icons-outlined.md-18 { 
   font-size: 18px;
+}
+
+.material-icons-outlined.md-16 { 
+  font-size: 16px;
 }
 
 .material-icons-outlined.md-14 { 
