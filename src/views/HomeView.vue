@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <input-search-weather :getCity="getNewCity" ></input-search-weather>
-    <search-weather :cityQuery="searchCity" v-if="searchCity.length > 0"></search-weather>
-    <default-weather v-else></default-weather>
+    <default-weather :cityQuery="searchCity"></default-weather>
   </div>
   
 </template>
@@ -11,7 +10,6 @@
 import { defineComponent } from 'vue';
 import DefaultWeather from '@/components/DefaultWeather.vue';
 import InputSearchWeather from '@/components/InputSearchWeather.vue';
-import SearchWeather from '@/components/SearchWeather.vue';
 
 
 export default defineComponent({
@@ -19,7 +17,6 @@ export default defineComponent({
   components: {
     DefaultWeather,
     InputSearchWeather,
-    SearchWeather
 },
   data(){
     return {

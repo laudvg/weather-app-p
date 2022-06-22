@@ -74,6 +74,7 @@
 import { defineComponent } from 'vue';
 import {weatherTypes} from '../types/weatherTypes';
 import { getWeatherbyLocation } from '@/services/byLocationAPICall';
+import { searchtWeather } from '@/services/bySearchAPICall';
 import ForecastCard from './ForecastCard.vue';
 import {forecastTypes} from '@/types/forecastTypes';
 import {getForecast} from '@/services/byForecastAPICall';
@@ -98,6 +99,12 @@ export default defineComponent({
       forecastData: {} as forecastTypes,
     }
   },
+  props: {
+    cityQuery: {
+      type: String,
+      default: 'Berlin',
+    },
+  },
   methods: {
     getGeolocalization(): void {
       if (navigator.geolocation) {
@@ -106,6 +113,7 @@ export default defineComponent({
         alert("The app requieres the Geolocation to continue");
       }
     },
+
     asignGeolocalization(position: any): void {
       const lng = position.coords.longitude;
       const lat = position.coords.latitude;
@@ -116,11 +124,20 @@ export default defineComponent({
     },
 
     async searchWeatherbyLocation():Promise<void>{
+      console.log(this.cityQuery, "byLocation");
       const value = await getWeatherbyLocation(this.latitude, this.longitude);
       this.data = value;
       this.temperature = value.main.temp;
       this.temp_min = value.main.temp_min;
       this.temp_max = value.main.temp_max;
+    },
+
+    async searchWeather():Promise<void>{
+      console.log(this.cityQuery, "in search");
+      const value = await searchtWeather(this.cityQuery);
+      this.data = value;
+      this.searchForecast();
+      this.sunValues();
     },
     
     async searchForecast():Promise<void>{
@@ -153,7 +170,6 @@ export default defineComponent({
   },
   created(){
     this.getGeolocalization();
-    this.sunValues();
   },
   watch: {
     longitude: {
@@ -163,6 +179,10 @@ export default defineComponent({
     latitude: {
       immediate: true,
       handler: 'searchWeatherbyLocation',
+    },
+    cityQuery: {
+      deep: true,
+      handler: 'searchWeather',
     },
   },
 });
