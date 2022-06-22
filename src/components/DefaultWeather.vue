@@ -73,7 +73,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {weatherTypes} from '../types/weatherTypes';
-import { getWeatherbyLocation } from '@/services/byLocationAPICall';
+import { getWeather } from '@/services/byLocationAPICall';
 import { searchtWeather } from '@/services/bySearchAPICall';
 import ForecastCard from './ForecastCard.vue';
 import {forecastTypes} from '@/types/forecastTypes';
@@ -119,13 +119,12 @@ export default defineComponent({
       const lat = position.coords.latitude;
       this.latitude = lat;
       this.longitude = lng;
-      this.searchWeatherbyLocation();
+      this.getWeatherbyLocation();
       this.searchForecast();
     },
 
-    async searchWeatherbyLocation():Promise<void>{
-      console.log(this.cityQuery, "byLocation");
-      const value = await getWeatherbyLocation(this.latitude, this.longitude);
+    async getWeatherbyLocation():Promise<void>{
+      const value = await getWeather(this.latitude, this.longitude);
       this.data = value;
       this.temperature = value.main.temp;
       this.temp_min = value.main.temp_min;
@@ -133,7 +132,6 @@ export default defineComponent({
     },
 
     async searchWeather():Promise<void>{
-      console.log(this.cityQuery, "in search");
       const value = await searchtWeather(this.cityQuery);
       this.data = value;
       this.searchForecast();
@@ -174,11 +172,11 @@ export default defineComponent({
   watch: {
     longitude: {
       immediate: true,
-      handler: 'searchWeatherbyLocation',
+      handler: 'getWeatherbyLocation',
     },
     latitude: {
       immediate: true,
-      handler: 'searchWeatherbyLocation',
+      handler: 'getWeatherbyLocation',
     },
     cityQuery: {
       deep: true,
