@@ -33,7 +33,7 @@ export default defineComponent({
       const date = new Date(timestamp * 1000);
       const hours = date.getHours();
       const minutes = "0" + date.getMinutes();
-      const formattedTime = hours + ':' + minutes.substr(-2);
+      const formattedTime = hours + ':' + minutes.slice(-2);
       this.formatedHour = formattedTime;
     },
   },
@@ -62,10 +62,6 @@ export default defineComponent({
     flex-direction:row;
     justify-content: center;
     align-content: center;
-  }
-
-  h6 .forecast-card{
-    font-size: .75rem;
   }
   .material-icons-outlined.md-12 { 
     font-size: 12px;

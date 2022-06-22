@@ -152,7 +152,7 @@ export default defineComponent({
       const date = new Date(timestamp * 1000);
       const hours = date.getHours();
       const minutes = "0" + date.getMinutes();
-      const formattedTime = hours + ':' + minutes.substr(-2);
+      const formattedTime = hours + ':' + minutes.slice(-2);
       return formattedTime;
     },
 
@@ -204,7 +204,6 @@ export default defineComponent({
 .weather-description{
   width: 15rem;
   font-weight: 500;
-  font-size: .75rem;
 }
 
 .today-date{
@@ -223,8 +222,6 @@ export default defineComponent({
 
 .material-icons-outlined.md-18 { 
   font-size: 18px;
-  margin-top: .1rem;
-  margin-left: 0.75rem;
 }
 
 .material-icons-outlined.md-14 { 

@@ -1,21 +1,21 @@
 <template>
   <div class="home">
     <input-search-weather :getCity="getNewCity" ></input-search-weather>
-    <default-weather :cityQuery="searchCity"></default-weather>
+    <weather-card :cityQuery="searchCity"></weather-card>
   </div>
   
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import DefaultWeather from '@/components/DefaultWeather.vue';
+import WeatherCard from '@/components/WeatherCard.vue';
 import InputSearchWeather from '@/components/InputSearchWeather.vue';
 
 
 export default defineComponent({
   name: 'HomeView',
   components: {
-    DefaultWeather,
+    WeatherCard,
     InputSearchWeather,
 },
   data(){
@@ -32,13 +32,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .home{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color:#F0F8FF;
 }
-
 </style>
